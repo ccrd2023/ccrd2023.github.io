@@ -37,7 +37,7 @@ banned-historical-archives</a></span>
 <span></span>
 <span class="Label Label--secondary v-align-middle mr-1">Public</span>
 <span></span>
-%s<a href='<!--FPRL.HTM-->'>Fast Pure Raw Links.htm</a>
+%s<a href='<!--FPRL.TXT-->' download>Fast Pure Raw Links.txt</a>
 <!--LOAD PATH-->
 <hr>
 <!--LOAD LIST-->
@@ -62,7 +62,7 @@ for a in l.keys():
         ht2=ht.replace('<!--LOAD LIST-->',li)
         ht2=ht2.replace('\n<!--LOAD PATH-->','')
         ht2=ht2.replace('<!--INDEX.HTM-->','index.htm')
-        ht2=ht2.replace('<!--FPRL.HTM-->','Fast Pure Raw Links.htm')
+        ht2=ht2.replace('<!--FPRL.TXT-->','Fast Pure Raw Links.txt')
         ht2=ht2.replace('<!--LOAD MD-->',md)
         print(a)
         f=open('index.htm','w+');f.write(ht2);f.close()
@@ -79,7 +79,7 @@ for a in l.keys():
         ht2=ht.replace('<!--LOAD LIST-->',li)
         pr='/'.join(['..'for b in range(len(a[lp+1:].split('/')))])
         ht2=ht2.replace('<!--INDEX.HTM-->','%s/index.htm'%pr)
-        ht2=ht2.replace('<!--FPRL.HTM-->','%s/Fast Pure Raw Links.htm'%pr)
+        ht2=ht2.replace('<!--FPRL.TXT-->','%s/Fast Pure Raw Links.txt'%pr)
         pas=a[lp+1:].split('/')
         lpas=len(pas)
         t=['<span class="js-repo-root text-bold"><span class="js-path-segment d-inline-block wb-break-all"><a data-turbo-frame="repo-content-turbo-frame" href="%s/index.htm"><span>CCRD</span></a></span></span>'%'/'.join(['..'for b in range(lpas)])]
@@ -96,9 +96,7 @@ for a in l.keys():
 l2=[]
 for a in l.keys():
     l2.extend([b[lp+1:]for b in l[a][1]])
-l2.sort()
-l2=['%s'%a for a in l2]
-l2=['<a href="%s">%s</a>'%(a,a)for a in l2]
-l2='<html>\n<head><style>a:link{color:#000000;text-decoration:none}a:hover{color:#0645ad;text-decoration:underline;}</style></head>\n<body>\n%s\n</body></html>'%'\n<br>\n'.join(l2)
+l2=natsorted(l2,alg=ns.IGNORECASE)
+l2='\n'.join(l2)
 print('end')
-f=open('Fast Pure Raw Links.htm','w+');f.write(l2);f.close()
+f=open('Fast Pure Raw Links.txt','w+');f.write(l2);f.close()
